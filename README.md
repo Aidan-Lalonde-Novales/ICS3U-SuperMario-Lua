@@ -1,2 +1,2 @@
 # ICS3U-SuperMario-Lua
-Super Mario Learning Guide from CS50x for third learning guide
+Learning Guide #03 for ICS3U - Single Player Pong from CS50x

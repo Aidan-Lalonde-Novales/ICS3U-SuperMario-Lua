@@ -31,8 +31,6 @@ function Map:init()
     self.mapHeight = 28
     self.tiles = {}
 
-    sekf.player = Player(self)
-
     self.camX = 0
     self.camY = -3
 
@@ -109,8 +107,6 @@ function Map:update(dt)
     elseif love.keyboard.isDown('down') then
         self.camY = math.min(self.camY + dt * SCROLL_SPEED, self.mapHeightPixels - VIRTUAL_HEIGHT)
     end
-
-    self.player:update(dt)
 end
 
 function Map:getTile(x, y)
@@ -130,5 +126,4 @@ function Map:render()
             end
         end
     end
-    self.player:render()
 end

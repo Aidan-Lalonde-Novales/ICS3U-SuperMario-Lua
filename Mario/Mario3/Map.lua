@@ -113,15 +113,16 @@ function Map:getTile(x, y)
     return self.tiles[(y - 1) * self.mapWidth + x]
 end
 
-function Map:setTile(x, y, tile)
-    self.tiles[(y - 1) * self.mapWidth + x] = tile
+function Map:setTile(x, y, id)
+    self.tiles[(y - 1) * self.mapWidth + x] = id
 end
 
 function Map:render()
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
-            if self:getTile(x, y) ~= TILE_EMPTY then
-                love.graphics.draw(self.spritesheet, self.tileSprites[self:getTile(x, y)],
+            local tile = self:getTile(x, y)
+            if tile ~= TILE_EMPTY then
+                love.graphics.draw(self.spritesheet, self.tileSprites[tile],
                     (x - 1) * self.tileWidth, (y - 1) * self.tileHeight)
             end
         end

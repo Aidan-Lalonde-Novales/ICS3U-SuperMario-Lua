@@ -17,6 +17,8 @@ function love.load()
     
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    love.graphics.setFont(love.graphics.newFont('fonts/font.ttf', 8))
+
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = true
@@ -40,10 +42,9 @@ end
 function love.draw()
     push:apply('start')
 
-    love.graphics.translate(math.floor(-map.camX),math.floor (-map.camY))
-
     love.graphics.clear(108 / 255, 140 / 255, 255 / 255, 255 / 255)
 
+    love.graphics.clear(108, 140, 255, 255)
     map:render()
 
     push:apply('end')

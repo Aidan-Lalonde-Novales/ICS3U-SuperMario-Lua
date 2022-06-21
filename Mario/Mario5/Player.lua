@@ -28,7 +28,7 @@ function Player:init(map)
     self.x = map.tileWidth * 10
 
     self.frames = {
-        love.graphics.newQuad(0, 0, 16, 20, self.texture:getDimensions())
+        love.graphics.newQuad(144, 0, 16, 20, self.texture:getDimensions())
     }
 
     self.currentFrame = self.frames[1]
@@ -38,9 +38,12 @@ function Player:init(map)
             
             if love.keyboard.wasPressed('left') then
                 direction = 'left'
-            end
-            if love.keyboard.wasPressed('right') then
+                self.dx = -80
+            elseif love.keyboard.wasPressed('right') then
                 direction = 'right'
+                self.dx = 80
+            else
+                self.dx = 0
             end
         end
     }
@@ -48,6 +51,7 @@ end
 
 function Player:update(dt)
     self.behaviors[self.state](dt)
+    self.x = self.x + self.dx * dt
 end
 
 function Player:render()

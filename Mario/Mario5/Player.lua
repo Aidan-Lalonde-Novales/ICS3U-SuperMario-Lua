@@ -36,10 +36,10 @@ function Player:init(map)
     self.behaviors = {
         ['idle'] = function(dt)
             
-            if love.keyboard.wasPressed('left') then
+            if love.keyboard.isDown('left') then
                 direction = 'left'
                 self.dx = -80
-            elseif love.keyboard.wasPressed('right') then
+            elseif love.keyboard.isDown('right') then
                 direction = 'right'
                 self.dx = 80
             else

@@ -122,7 +122,7 @@ function Map:render()
         for x = 1, self.mapWidth do
             local tile = self:getTile(x, y)
             if tile ~= TILE_EMPTY then
-                love.graphics.draw(self.spritesheet, self.tileSprites[tile],
+                love.graphics.draw(self.spritesheet, self.sprites[tile],
                     (x - 1) * self.tileWidth, (y - 1) * self.tileHeight)
             end
         end

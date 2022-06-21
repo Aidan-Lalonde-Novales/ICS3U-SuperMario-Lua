@@ -66,6 +66,7 @@ function Map:init()
 
         elseif math.random(10) == 1 and x < self.mapWidth - 3 then
             local bushLevel = self.mapHeight / 2 - 1
+
             self:setTile(x, bushLevel, BUSH_LEFT)
             for y = self.mapHeight / 2, self.mapHeight do
                 self:setTile(x, y, TILE_BRICK)

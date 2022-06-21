@@ -42,7 +42,7 @@ end
 function love.draw()
     push:apply('start')
 
-    love.graphics.clear(108 / 255, 140 / 255, 255 / 255, 255 / 255)
+    love.graphics.clear(108, 140, 255, 255)
 
     love.graphics.clear(108, 140, 255, 255)
     map:render()

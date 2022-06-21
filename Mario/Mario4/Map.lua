@@ -31,7 +31,7 @@ function Map:init()
     self.mapHeight = 28
     self.tiles = {}
 
-    self.plater = Plater(self)
+    self.player = Player(self)
 
     self.camX = 0
     self.camY = -3

@@ -1,4 +1,4 @@
--- Main Code for Mario 2 / Learning Guide 3.3
+-- Main Code for Mario 3 / Learning Guide 3.4
 
 Class = require 'class'
 push = require 'push'

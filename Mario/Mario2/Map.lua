@@ -19,8 +19,11 @@ function Map:init()
     self.tiles = {}
 
     self.camX = 0
-    self.camY = 0
+    self.camY = -3
     self.tileSprites = generateQuads(self.spritesheet, 16, 16)
+
+    self.mapWidthPixels = self.mapWidth * self.tileWidth
+    self.mapHeightPixels = self.mapHeight * self.tileHeight
 
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
@@ -36,7 +39,17 @@ function Map:init()
 end
 
 function Map:update(dt)
-    self.camX = self.camX + SCROLL_SPEED * dt
+    if love.keyboard.isDown('left') then
+        self.camX = math.max(0, self.camX - dt * SCROLL_SPEED)
+    elseif love.keyboard.isDown('right') then
+        self.camX = math.min(self.camX + dt * SCROLL_SPEED, self.mapWidthPixels - VIRTUAL_WIDTH)
+    end
+
+    if love.keyboard.isDown('up') then
+        self.camY = math.max(0, self.camY - dt * SCROLL_SPEED)
+    elseif love.keyboard.isDown('down') then
+        self.camY = math.min(self.camY + dt * SCROLL_SPEED, self.mapHeightPixels - VIRTUAL_HEIGHT)
+    end
 end
 
 function Map:getTile(x, y)

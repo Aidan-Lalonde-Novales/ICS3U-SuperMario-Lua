@@ -50,7 +50,7 @@ function Player:init(map)
     }
 
     self.animation = self.animations['idle']
-    self.currentFrame = self.currentFrame = self.animation:getCurrentFrame()
+    self.currentFrame = self.animation:getCurrentFrame()
 
     self.behaviors = {
         ['idle'] = function(dt)

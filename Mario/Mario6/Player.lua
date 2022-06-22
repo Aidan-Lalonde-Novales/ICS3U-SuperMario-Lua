@@ -66,6 +66,7 @@ function Player:init(map)
                 self.dx = WALKING_SPEED
                 self.state = 'walking'
                 self.animations['walking']:restart()
+                self.animation = self.animations['walking']
             end
         end,
         ['walking'] = function(dt)

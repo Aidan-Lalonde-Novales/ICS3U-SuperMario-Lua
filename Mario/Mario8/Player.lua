@@ -1,6 +1,4 @@
---[[
-    Represents our player in the game, with its own sprite.
-]]
+-- PLayer Class for Mario
 
 Player = Class{}
 
@@ -14,35 +12,25 @@ function Player:init(map)
     self.width = 16
     self.height = 20
 
-    -- offset from top left to center to support sprite flipping
     self.xOffset = 8
     self.yOffset = 16
 
-    -- reference to map for checking tiles
     self.map = map
     self.texture = love.graphics.newImage('graphics/blue_alien.png')
 
     -- animation frames
     self.frames = {}
-
-    -- current animation frame
     self.currentFrame = nil
-
-    -- used to determine behavior and animations
     self.state = 'idle'
-
-    -- determines sprite flipping
     self.direction = 'left'
 
-    -- x and y velocity
     self.dx = 0
     self.dy = 0
 
-    -- position on top of map tiles
+    -- start pos
     self.y = map.tileHeight * ((map.mapHeight - 2) / 2) - self.height
     self.x = map.tileWidth * 10
 
-    -- initialize all player animations
     self.animations = {
         ['idle'] = Animation({
             texture = self.texture,
@@ -68,15 +56,12 @@ function Player:init(map)
         })
     }
 
-    -- initialize animation and current frame we should render
     self.animation = self.animations['idle']
     self.currentFrame = self.animation:getCurrentFrame()
 
-    -- behavior map we can call based on player state
     self.behaviors = {
         ['idle'] = function(dt)
             
-            -- add spacebar functionality to trigger jump state
             if love.keyboard.wasPressed('space') then
                 self.dy = -JUMP_VELOCITY
                 self.state = 'jumping'
@@ -98,9 +83,7 @@ function Player:init(map)
             end
         end,
         ['walking'] = function(dt)
-            
-            -- keep track of input to switch movement while walking, or reset
-            -- to idle if we're not moving
+
             if love.keyboard.wasPressed('space') then
                 self.dy = -JUMP_VELOCITY
                 self.state = 'jumping'
@@ -146,14 +129,10 @@ function Player:update(dt)
     self.currentFrame = self.animation:getCurrentFrame()
     self.x = self.x + self.dx * dt
 
-    -- if we have negative y velocity (jumping), check if we collide
-    -- with any blocks above us
     if self.dy < 0 then
         if self.map:tileAt(self.x, self.y) ~= TILE_EMPTY or
             self.map:tileAt(self.x + self.width - 1, self.y) ~= TILE_EMPTY then
-            -- reset y velocity
             self.dy = 0
-
             -- change block to different block
             if self.map:tileAt(self.x, self.y) == JUMP_BLOCK then
                 self.map:setTile(math.floor(self.x / self.map.tileWidth) + 1,
@@ -174,15 +153,12 @@ end
 function Player:render()
     local scaleX
 
-    -- set negative x scale factor if facing left, which will flip the sprite
-    -- when applied
     if self.direction == 'right' then
         scaleX = 1
     else
         scaleX = -1
     end
 
-    -- draw sprite with scale factor and offsets
     love.graphics.draw(self.texture, self.currentFrame, math.floor(self.x + self.xOffset),
         math.floor(self.y + self.yOffset), 0, scaleX, 1, self.xOffset, self.yOffset)
 end

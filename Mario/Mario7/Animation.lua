@@ -26,10 +26,9 @@ end
 function Animation:update(dt)
     self.timer = self.timer + dt
 
-        while self.timer > self.interval do
-            self.timer = self.timer - self.interval
-            self.currentFrame = (self.currentFrame + 1) % #self.frames
-            if self.currentFrame == 0 then self.currentFrame = 1 end
-        end
+    while self.timer > self.interval do
+        self.timer = self.timer - self.interval
+        self.currentFrame = (self.currentFrame + 1) % #self.frames
+        if self.currentFrame == 0 then self.currentFrame = 1 end
     end
 end

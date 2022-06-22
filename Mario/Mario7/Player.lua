@@ -2,7 +2,7 @@
 
 Player = Class{}
 
-local WALKING_SPEED = 100
+local WALKING_SPEED = 140
 local JUMP_VELOCITY = 400
 
 function Player:init(map)
@@ -18,7 +18,7 @@ function Player:init(map)
     self.map = map
     self.texture = love.graphics.newImage('graphics/blue_alien.png')
 
-    -- animation defaults
+    -- animation frames
     self.frames = {}
     self.currentFrame = nil
     self.state = 'idle'
@@ -62,23 +62,33 @@ function Player:init(map)
     self.behaviors = {
         ['idle'] = function(dt)
             
-            if love.keyboard.isDown('left') then
-                direction = 'left'
+            if love.keyboard.wasPressed('space') then
+                self.dy = -JUMP_VELOCITY
+                self.state = 'jumping'
+                self.animation = self.animations['jumping']
+            elseif love.keyboard.isDown('left') then
+                self.direction = 'left'
                 self.dx = -WALKING_SPEED
                 self.state = 'walking'
                 self.animations['walking']:restart()
                 self.animation = self.animations['walking']
             elseif love.keyboard.isDown('right') then
-                direction = 'right'
+                self.direction = 'right'
                 self.dx = WALKING_SPEED
                 self.state = 'walking'
                 self.animations['walking']:restart()
                 self.animation = self.animations['walking']
+            else
+                self.dx = 0
             end
         end,
         ['walking'] = function(dt)
 
-            if love.keyboard.isDown('left') then
+            if love.keyboard.wasPressed('space') then
+                self.dy = -JUMP_VELOCITY
+                self.state = 'jumping'
+                self.animation = self.animations['jumping']
+            elseif love.keyboard.isDown('left') then
                 self.direction = 'left'
                 self.dx = -WALKING_SPEED
             elseif love.keyboard.isDown('right') then
